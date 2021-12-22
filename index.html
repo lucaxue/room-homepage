@@ -24,112 +24,211 @@
       { theme: { fontFamily: { 'sans': ['Spartan'] } } }
     </script>
 
+    <!-- Vue JS CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+
     <title>room</title>
   </head>
 
   <body>
-    <nav
-      class="
-        flex
-        fixed
-        top-0
-        lowercase
-        p-12
-        items-center
-        text-white
-        md:w-max
-        w-full
-      "
-    >
-      <a href="#" class="md:mr-8 mx-auto text-2xl font-semibold">Room</a>
-      <ul class="md:flex gap-6 hidden">
-        <li><a href="#" class="hover:underline">Home</a></li>
-        <li><a href="#" class="hover:underline">Shop</a></li>
-        <li><a href="#" class="hover:underline">About</a></li>
-        <li><a href="#" class="hover:underline">Contact</a></li>
-        <li><a href="#" class="hover:underline">Discover</a></li>
-      </ul>
-    </nav>
+    <div id="app">
+      <nav
+        class="
+          flex
+          fixed
+          top-0
+          lowercase
+          p-12
+          items-center
+          text-white
+          md:w-max
+          w-full
+        "
+      >
+        <a href="#" class="md:mr-8 mx-auto text-2xl font-semibold">Room</a>
+        <ul class="md:flex gap-6 hidden">
+          <li><a href="#" class="hover:underline">Home</a></li>
+          <li><a href="#" class="hover:underline">Shop</a></li>
+          <li><a href="#" class="hover:underline">About</a></li>
+          <li><a href="#" class="hover:underline">Contact</a></li>
+          <li><a href="#" class="hover:underline">Discover</a></li>
+        </ul>
+      </nav>
+      <main class="md:h-screen max-w-screen-2xl">
+        <carousel class="md:h-2/3"></carousel>
+        <div class="md:flex md:h-1/3">
+          <img
+            src="./images/image-about-dark.jpg"
+            alt="Furniture in a dark room."
+            class="object-cover w-full flex-1"
+          />
+          <div class="p-12 flex flex-col justify-center md:w-4/5">
+            <h3 class="uppercase tracking-[6px] text-xs font-bold mb-4">
+              About our furniture
+            </h3>
+            <p class="text-gray-400 text-sm overflow-auto">
+              Our multifunctional collection blends design and function to suit
+              your individual taste. Make each room unique, or pick a cohesive
+              theme that best express your interests and what inspires you. Find
+              the furniture pieces you need, from traditional to contemporary
+              styles or anything in between. Product specialists are available
+              to help you create your dream space.
+            </p>
+          </div>
+          <img
+            src="./images/image-about-light.jpg"
+            alt="White chair in a white room."
+            class="object-cover w-full flex-1"
+          />
+        </div>
+      </main>
+    </div>
 
-    <main class="md:h-screen max-w-screen-2xl">
-      <div class="md:flex md:h-2/3">
-        <img
-          src="./images/desktop-image-hero-1.jpg"
-          alt="Two chairs and a table with a plant."
-          class="object-cover h-full md:w-7/12"
-        />
-        <div class="flex flex-col md:p-24 p-12 relative md:w-5/12">
-          <h1
-            class="md:text-4xl sm:text-3xl text-2xl font-semibold md:mb-10 mb-6"
-          >
-            Discover innovative ways to decorate
-          </h1>
-          <p class="text-gray-400 text-sm overflow-auto mb-10">
-            We provide unmatched quality, comfort, and style for property owners
-            across the country. Our experts combine form and function in
-            bringing your vision to life. Create a room in your own style with
-            our collection and make your property a reflection of you and what
-            you love.
-          </p>
-          <div class="flex items-start gap-6">
-            <a
-              href="#"
-              class="
-                uppercase
-                text-xs
-                tracking-[12px]
-                font-semibold
-                hover:text-gray-400
-              "
+    <script>
+      const app = Vue.createApp({});
+
+      app.component('carousel', {
+        template: `
+          <div class="md:flex">
+            <div
+              class="flex flex-no-wrap overflow-x-hidden"
+              style="scroll-behavior: smooth"
             >
-              Shop now
-            </a>
-            <img src="./images/icon-arrow.svg" alt="Arrow" />
-          </div>
-          <div class="flex bottom-0 left-0 absolute md:visible invisible">
-            <button class="h-20 w-20 bg-black">
               <img
-                class="m-auto"
-                src="./images/icon-angle-left.svg"
-                alt="Icon angle left."
+                v-for="slide in slides"
+                :ref="slide.title.toLowerCase().split(' ').join('-')"
+                :key="slide.title.toLowerCase().split(' ').join('-')"
+                :src="slide.image.src"
+                :alt="slide.image.alt"
+                class="object-cover h-full"
               />
-            </button>
-            <button class="h-20 w-20 bg-black">
-              <img
-                class="m-auto"
-                src="./images/icon-angle-right.svg"
-                alt="Icon angle right."
-              />
-            </button>
-          </div>
-        </div>
-      </div>
+            </div>
+            <div class="flex flex-col md:p-24 p-12 relative md:w-[91rem]">
+              <h1
+                class="md:text-4xl sm:text-3xl text-2xl font-semibold md:mb-10 mb-6"
+              >
+                {{ currentSlide.title }}
+              </h1>
+              <p class="text-gray-400 text-sm overflow-auto mb-10">
+                {{ currentSlide.description }}
+              </p>
+              <div class="flex items-start gap-6">
+                <a
+                  href="#"
+                  class="
+                    uppercase
+                    text-xs
+                    tracking-[12px]
+                    font-semibold
+                    hover:text-gray-400
+                  "
+                >
+                  Shop now
+                </a>
+                <img src="./images/icon-arrow.svg" alt="Arrow" />
+              </div>
+              <div class="md:flex bottom-0 left-0 absolute hidden">
+                <button
+                  @click="swipeBack"
+                  class="h-20 w-20 bg-black grid place-items-center"
+                >
+                  <img
+                    class="m-auto"
+                    src="./images/icon-angle-left.svg"
+                    alt="Icon angle left."
+                  />
+                </button>
+                <button
+                  @click="swipeForward"
+                  class="h-20 w-20 bg-black grid place-items-center"
+                >
+                  <img
+                    class="m-auto"
+                    src="./images/icon-angle-right.svg"
+                    alt="Icon angle right."
+                  />
+                </button>
+              </div>
+            </div>
+          </div>`,
+        data() {
+          return {
+            slides: [
+              {
+                image: {
+                  src: './images/desktop-image-hero-1.jpg',
+                  alt: 'Two chairs and a table with a plant.',
+                },
+                title: 'Discover innovative ways to decorate',
+                description:
+                  'We provide unmatched quality, comfort, and style for property owners across the country. Our experts combine form and function in bringing your vision to life. Create a room in your own style with our collection and make your property a reflection of you and what you love.',
+              },
+              {
+                image: {
+                  src: './images/desktop-image-hero-3.jpg',
+                  alt: 'Three chairs.',
+                },
+                title: 'We are available all across the globe',
+                description:
+                  "With stores all over the world, it's easy for you to find furniture for your home or place of business. Locally, we're in most major cities throughout the country. Find the branch nearest you using our store locatior. Any questions? Don't hesitate to contact us today.",
+              },
+              {
+                image: {
+                  src: './images/desktop-image-hero-2.jpg',
+                  alt: 'Three chairs.',
+                },
+                title: 'Manufactured with the best materials',
+                description:
+                  'Our modern furniture store provide a high level of quality. Our company has invested in advanced technology to ensure that every product is made as perfect and as consistent as possible. With three decades of experience in this industry, we understand what customers want for their home and office.',
+              },
+            ],
+            currentIndex: 0,
+          };
+        },
+        computed: {
+          currentSlide() {
+            return this.slides[this.currentIndex];
+          },
+          nextIndex() {
+            if (this.slides.length === this.currentIndex + 1) {
+              return 0;
+            }
 
-      <div class="md:flex md:h-1/3">
-        <img
-          src="./images/image-about-dark.jpg"
-          alt="Furniture in a dark room."
-          class="object-cover w-full flex-1"
-        />
-        <div class="p-12 flex flex-col justify-center md:w-4/5">
-          <h3 class="uppercase tracking-[6px] text-xs font-bold mb-4">
-            About our furniture
-          </h3>
-          <p class="text-gray-400 text-sm overflow-auto">
-            Our multifunctional collection blends design and function to suit
-            your individual taste. Make each room unique, or pick a cohesive
-            theme that best express your interests and what inspires you. Find
-            the furniture pieces you need, from traditional to contemporary
-            styles or anything in between. Product specialists are available to
-            help you create your dream space.
-          </p>
-        </div>
-        <img
-          src="./images/image-about-light.jpg"
-          alt="White chair in a white room."
-          class="object-cover w-full flex-1"
-        />
-      </div>
-    </main>
+            return this.currentIndex + 1;
+          },
+          previousIndex() {
+            if (this.currentIndex === 0) {
+              return this.slides.length - 1;
+            }
+
+            return this.currentIndex - 1;
+          },
+        },
+        methods: {
+          swipeForward() {
+            const nextRef = this.slides[this.nextIndex].title
+              .toLowerCase()
+              .split(' ')
+              .join('-');
+
+            this.$refs[nextRef][0].scrollIntoView();
+
+            this.currentIndex = this.nextIndex;
+          },
+          swipeBack() {
+            const previousRef = this.slides[this.previousIndex].title
+              .toLowerCase()
+              .split(' ')
+              .join('-');
+
+            this.$refs[previousRef][0].scrollIntoView();
+
+            this.currentIndex = this.previousIndex;
+          },
+        },
+      });
+
+      app.mount('#app');
+    </script>
   </body>
 </html>
