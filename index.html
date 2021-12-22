@@ -32,28 +32,7 @@
 
   <body>
     <div id="app">
-      <nav
-        class="
-          flex
-          fixed
-          top-0
-          lowercase
-          p-12
-          items-center
-          text-white
-          md:w-max
-          w-full
-        "
-      >
-        <a href="#" class="md:mr-8 mx-auto text-2xl font-semibold">Room</a>
-        <ul class="md:flex gap-6 hidden">
-          <li><a href="#" class="hover:underline">Home</a></li>
-          <li><a href="#" class="hover:underline">Shop</a></li>
-          <li><a href="#" class="hover:underline">About</a></li>
-          <li><a href="#" class="hover:underline">Contact</a></li>
-          <li><a href="#" class="hover:underline">Discover</a></li>
-        </ul>
-      </nav>
+      <navigation></navigation>
       <main class="md:h-screen max-w-screen-2xl">
         <carousel class="md:h-2/3"></carousel>
         <div class="md:flex md:h-1/3">
@@ -86,6 +65,61 @@
 
     <script>
       const app = Vue.createApp({});
+
+      app.component('navigation', {
+        data() {
+          return {
+            showMenu: false,
+          };
+        },
+        template: `
+          <nav
+            class="
+              flex
+              fixed
+              top-0
+              lowercase
+              md:p-12
+              p-8
+              py-12
+              items-center
+              md:text-white
+              text-black
+              md:w-max
+              w-full
+              md:bg-transparent
+              justify-between
+            "
+            :class="[showMenu ? 'bg-white' : 'bg-transparent']"
+          >
+            <button @click="toggleMenu" class="md:hidden focus:outline-none">
+              <img v-if='!showMenu' src="./images/icon-hamburger.svg" alt="Hamburger icon." />
+              <img v-else='!showMenu' src="./images/icon-close.svg" alt="Close icon." />
+            </button>
+            <a 
+              href="#" 
+              class="md:mr-8 mx-auto text-2xl font-semibold md:block"
+              :class="[showMenu ? 'hidden' : '']"
+            >
+              Room
+            </a>
+            <ul 
+              class="md:flex flex-no-wrap gap-6 md:font-normal font-bold sm:text-base text-sm"
+              :class="[showMenu ? 'flex' : 'hidden']"
+            >
+              <li><a href="#" class="hover:underline">Home</a></li>
+              <li><a href="#" class="hover:underline">Shop</a></li>
+              <li><a href="#" class="hover:underline">About</a></li>
+              <li><a href="#" class="hover:underline">Contact</a></li>
+              <li class='sm:block hidden'><a href="#" class="hover:underline">Discover</a></li>
+            </ul>
+          </nav>`,
+        methods: {
+          toggleMenu() {
+            this.showMenu = !this.showMenu;
+          },
+        },
+      });
 
       app.component('carousel', {
         template: `
