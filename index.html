@@ -89,7 +89,7 @@
               justify-between
               z-10
             "
-            :class="[showMenu ? 'bg-white' : 'bg-transparent']"
+            :class="[showMenu ? 'bg-white shadow-2xl' : 'bg-gradient-to-b from-[#0000009e] to-transparent']"
           >
             <button @click="toggleMenu" class="md:hidden focus:outline-none">
               <img v-if='!showMenu' src="./images/icon-hamburger.svg" alt="Hamburger icon." />
