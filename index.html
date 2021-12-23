@@ -67,11 +67,6 @@
       const app = Vue.createApp({});
 
       app.component('navigation', {
-        data() {
-          return {
-            showMenu: false,
-          };
-        },
         template: `
           <nav
             class="
@@ -120,6 +115,11 @@
             class="md:hidden fixed min-h-screen bg-black bg-opacity-50 w-full z-10"
             @click="toggleMenu"
           />`,
+        data() {
+          return {
+            showMenu: false,
+          };
+        },
         methods: {
           toggleMenu() {
             this.showMenu = !this.showMenu;
