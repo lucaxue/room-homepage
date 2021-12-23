@@ -2,7 +2,7 @@
 
 Practicing my frontend skills with the [Room Homepage Challenge](https://www.frontendmentor.io/challenges/room-homepage-BtdBY_ENq). 
 
-![Room Homepage Desktop Layout](https://res.cloudinary.com/dz209s6jk/image/upload/q_auto:good,w_900/Challenges/cgi7kxhbyqkonep9ds3y.jpg)
+![Room Homepage Desktop Layout](./design/desktop-preview.jpg)
 
 ## Overview
 
@@ -32,7 +32,7 @@ I used the CDN for both [Tailwind CSS](https://beyondco.de/blog/tailwind-jit-com
   <img 
     alt='Innocent Smile'
     src='https://emojis.slackmojis.com/emojis/images/1617699538/27960/smile.png?1617699538' 
-	height='20px'
-	style='margin-left:0.5rem'
+	  height='20px'
+	  style='margin-left:0.5rem'
   />
 </div>
