@@ -136,8 +136,8 @@
             >
               <img
                 v-for="slide in slides"
-                :ref="slide.title.toLowerCase().split(' ').join('-')"
-                :key="slide.title.toLowerCase().split(' ').join('-')"
+                :ref="slug(slide.title.toLowerCase())"
+                :key="slug(slide.title.toLowerCase())"
                 :src="slide.image.src"
                 :alt="slide.image.alt"
                 class="object-cover sm:h-full h-96"
@@ -246,25 +246,20 @@
         },
         methods: {
           swipeForward() {
-            const nextRef = this.slides[this.nextIndex].title
-              .toLowerCase()
-              .split(' ')
-              .join('-');
+            const nextRef = this.slug(this.slides[this.nextIndex].title);
 
             this.$refs[nextRef][0].scrollIntoView();
 
             this.currentIndex = this.nextIndex;
           },
           swipeBack() {
-            const previousRef = this.slides[this.previousIndex].title
-              .toLowerCase()
-              .split(' ')
-              .join('-');
+            const previousRef = this.slug(this.slides[this.previousIndex].title);
 
             this.$refs[previousRef][0].scrollIntoView();
 
             this.currentIndex = this.previousIndex;
           },
+          slug: string => string.toLowerCase().split(' ').join('-'),
         },
         mounted() {
           setInterval(() => {
