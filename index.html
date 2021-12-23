@@ -259,7 +259,7 @@
 
             this.currentIndex = this.previousIndex;
           },
-          slug: string => string.toLowerCase().split(' ').join('-'),
+          slug: string => string.toLowerCase().replace(/\s/g, '-'),
         },
         mounted() {
           setInterval(() => {
