@@ -19,9 +19,15 @@
     />
 
     <!-- Tailwind CSS JIT CDN -->
-    <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
-    <script type="tailwind-config">
-      { theme: { fontFamily: { 'sans': ['Spartan'] } } }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: { 
+          fontFamily: { 
+            sans: ['Spartan'],
+          } 
+        } 
+      }
     </script>
 
     <!-- Vue JS CDN -->
@@ -131,8 +137,7 @@
         template: `
           <div class="md:flex">
             <div
-              class="flex flex-no-wrap overflow-x-hidden"
-              style="scroll-behavior: smooth"
+              class="flex flex-no-wrap overflow-x-hidden scroll-smooth"
             >
               <img
                 v-for="slide in slides"
