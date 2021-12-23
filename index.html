@@ -152,22 +152,24 @@
               <p class="text-gray-400 text-sm overflow-auto mb-10">
                 {{ currentSlide.description }}
               </p>
-              <div class="flex items-start gap-6">
-                <a
-                  href="#"
-                  class="
-                    uppercase
-                    text-xs
-                    tracking-[12px]
-                    font-semibold
-                    hover:text-gray-400
-                    transition-all
-                  "
-                >
-                  Shop now
-                </a>
+              <a
+                href="#"
+                class="
+                  w-max
+                  flex
+                  items-start
+                  gap-6
+                  uppercase
+                  text-xs
+                  tracking-[12px]
+                  font-semibold
+                  hover:text-gray-400
+                  transition-all
+                "
+              >
+                Shop now
                 <img src="./images/icon-arrow.svg" alt="Arrow" />
-              </div>
+              </a>
               <div class="flex absolute md:left-0 right-0 md:bottom-0 bottom-full">
                 <button
                   @click="swipeBack"
