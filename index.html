@@ -136,8 +136,8 @@
             >
               <img
                 v-for="slide in slides"
-                :ref="slug(slide.title.toLowerCase())"
-                :key="slug(slide.title.toLowerCase())"
+                :ref="slug(slide.title)"
+                :key="slug(slide.title)"
                 :src="slide.image.src"
                 :alt="slide.image.alt"
                 class="object-cover sm:h-full h-96"
